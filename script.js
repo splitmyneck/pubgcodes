@@ -34,20 +34,27 @@
     return (sym + (val != null ? val : p.usd));
   }
 
+  const btnPrimary = 'inline-flex items-center justify-center px-4 py-2 font-semibold rounded-pubg-sm cursor-pointer border-none text-pubg-dark bg-pubg-accent hover:bg-pubg-accent-hover hover:text-pubg-dark transition-colors';
+  const btnPrimarySm = 'inline-flex items-center justify-center py-1.5 px-3 text-[13px] font-semibold rounded-pubg-sm cursor-pointer border-none text-pubg-dark bg-pubg-accent hover:bg-pubg-accent-hover hover:text-pubg-dark transition-colors';
+  const btnGhost = 'inline-flex items-center justify-center px-4 py-2 font-semibold rounded-pubg-sm cursor-pointer border-none text-[#a1a1a6] bg-transparent hover:text-[#f5f5f7] hover:bg-pubg-accent-muted transition-colors';
+  const btnGhostSm = 'inline-flex items-center justify-center py-1.5 px-3 text-[13px] font-semibold rounded-pubg-sm cursor-pointer border-none text-[#a1a1a6] bg-transparent hover:text-[#f5f5f7] hover:bg-pubg-accent-muted transition-colors';
+  const btnPrimaryLg = 'inline-flex items-center justify-center py-3 px-6 text-base font-semibold rounded-pubg-sm cursor-pointer border-none text-pubg-dark bg-pubg-accent hover:bg-pubg-accent-hover hover:text-pubg-dark transition-colors';
+  const btnGhostLg = 'inline-flex items-center justify-center py-3 px-6 text-base font-semibold rounded-pubg-sm cursor-pointer border-none text-[#a1a1a6] bg-transparent hover:text-[#f5f5f7] hover:bg-pubg-accent-muted transition-colors';
+
   function viewHome() {
     return `
-      <section class="hero">
-        <div class="hero-inner">
-          <h1 class="hero-title">
-            Коды для <span class="highlight">PUBG</span><br>
-            <span class="hero-sub">предметы · сеты · скины</span>
+      <section class="py-20 px-6 pb-24 text-center bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(232,168,85,0.2),transparent_60%)]">
+        <div class="max-w-[720px] mx-auto">
+          <h1 class="mb-4 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight tracking-tight">
+            Коды для <span class="text-pubg-accent">PUBG</span><br>
+            <span class="font-normal text-[#a1a1a6]">предметы · сеты · скины</span>
           </h1>
-          <p class="hero-desc">
+          <p class="mb-8 text-lg text-[#a1a1a6]">
             Покупайте коды предметов, сетов одежды и скинов на оружие. Оплата в долларах, евро, рублях и криптовалюте.
           </p>
-          <div class="hero-actions">
-            <a href="#/catalog" class="btn btn-primary btn-lg" data-route="/catalog">Смотреть каталог</a>
-            <a href="#/how" class="btn btn-ghost btn-lg" data-route="/how">Как купить</a>
+          <div class="flex gap-3 justify-center flex-wrap">
+            <a href="#/catalog" class="btn btn-primary ${btnPrimaryLg}" data-route="/catalog">Смотреть каталог</a>
+            <a href="#/how" class="btn btn-ghost ${btnGhostLg}" data-route="/how">Как купить</a>
           </div>
         </div>
       </section>
@@ -56,19 +63,21 @@
 
   function viewCatalog() {
     const category = state.filterCategory;
+    const filterTab = (c, label) => `
+      <button type="button" class="filter-tab px-4 py-2 font-medium border-none rounded-md cursor-pointer transition-colors text-[#a1a1a6] bg-transparent hover:text-[#f5f5f7] ${category === c ? 'active' : ''}" data-category="${c}">${label}</button>`;
     const cards = PRODUCTS.map(p => {
       const show = category === 'all' || p.category === category;
       return `
-      <article class="product-card ${show ? '' : 'hidden'}" data-category="${p.category}" data-id="${p.id}">
-        <div class="product-image">
-          <img src="${p.img}" alt="${p.title}">
+      <article class="product-card bg-pubg-card border border-pubg-border rounded-pubg overflow-hidden transition-all hover:bg-pubg-card-hover hover:border-pubg-accent hover:-translate-y-0.5 hover:shadow-pubg ${show ? '' : 'hidden'}" data-category="${p.category}" data-id="${p.id}">
+        <div class="aspect-[280/180] bg-pubg-darker overflow-hidden">
+          <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover block">
         </div>
-        <div class="product-body">
-          <h3 class="product-title">${p.title}</h3>
-          <p class="product-desc">${p.desc}</p>
-          <div class="product-meta">
-            <span class="product-price" data-usd="${p.usd}" data-eur="${p.eur}" data-rub="${p.rub}" data-btc="${p.btc}">${formatPrice(p)}</span>
-            <button type="button" class="btn btn-primary btn-sm" data-action="add-cart" data-id="${p.id}">Купить</button>
+        <div class="p-4">
+          <h3 class="mb-2 text-[1.1rem] font-semibold text-[#f5f5f7]">${p.title}</h3>
+          <p class="mb-4 text-sm text-[#a1a1a6] leading-snug line-clamp-2">${p.desc}</p>
+          <div class="flex items-center justify-between gap-3">
+            <span class="product-price font-bold text-xl text-pubg-accent" data-usd="${p.usd}" data-eur="${p.eur}" data-rub="${p.rub}" data-btc="${p.btc}">${formatPrice(p)}</span>
+            <button type="button" class="btn btn-primary ${btnPrimarySm}" data-action="add-cart" data-id="${p.id}">Купить</button>
           </div>
         </div>
       </article>
@@ -76,15 +85,15 @@
     }).join('');
 
     return `
-      <section class="filters">
-        <div class="filters-inner">
-          <div class="filter-tabs">
-            <button type="button" class="filter-tab ${category === 'all' ? 'active' : ''}" data-category="all">Всё</button>
-            <button type="button" class="filter-tab ${category === 'items' ? 'active' : ''}" data-category="items">Предметы</button>
-            <button type="button" class="filter-tab ${category === 'outfits' ? 'active' : ''}" data-category="outfits">Сеты</button>
-            <button type="button" class="filter-tab ${category === 'weapon-skins' ? 'active' : ''}" data-category="weapon-skins">Скины оружия</button>
+      <section class="px-6 pb-6">
+        <div class="max-w-[1400px] mx-auto flex items-center justify-between gap-4 flex-wrap">
+          <div class="filter-tabs flex gap-1 bg-pubg-darker p-1 rounded-pubg-sm border border-pubg-border">
+            ${filterTab('all', 'Всё')}
+            ${filterTab('items', 'Предметы')}
+            ${filterTab('outfits', 'Сеты')}
+            ${filterTab('weapon-skins', 'Скины оружия')}
           </div>
-          <select class="sort-select" aria-label="Сортировка">
+          <select class="sort-select px-3 py-2 font-inherit text-[#f5f5f7] bg-pubg-darker border border-pubg-border rounded-pubg-sm cursor-pointer outline-none focus:border-pubg-accent" aria-label="Сортировка">
             <option value="popular">По популярности</option>
             <option value="price-asc">Сначала дешевле</option>
             <option value="price-desc">Сначала дороже</option>
@@ -92,9 +101,9 @@
           </select>
         </div>
       </section>
-      <section class="catalog" id="catalog">
-        <div class="catalog-inner">
-          <div class="product-grid" id="product-grid">${cards}</div>
+      <section class="catalog px-6 pb-20" id="catalog">
+        <div class="max-w-[1400px] mx-auto">
+          <div class="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-5" id="product-grid">${cards}</div>
         </div>
       </section>
     `;
@@ -102,29 +111,29 @@
 
   function viewHow() {
     return `
-      <section class="how" id="how">
-        <div class="how-inner">
-          <h2 class="section-title">Как оплатить</h2>
-          <div class="payment-methods">
-            <div class="payment-card">
-              <span class="payment-icon">$</span>
-              <h3>Доллары (USD)</h3>
-              <p>Карты Visa, Mastercard, PayPal</p>
+      <section class="how py-16 px-6 pb-20 bg-pubg-darker" id="how">
+        <div class="max-w-[1200px] mx-auto">
+          <h2 class="section-title mb-8 text-[1.75rem] font-bold text-center">Как оплатить</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="payment-card p-6 bg-pubg-card border border-pubg-border rounded-pubg text-center transition-colors hover:border-pubg-accent hover:bg-pubg-card-hover">
+              <span class="block mb-3 text-3xl font-bold text-pubg-accent">$</span>
+              <h3 class="mb-2 text-[1.1rem] font-semibold">Доллары (USD)</h3>
+              <p class="m-0 text-sm text-[#a1a1a6]">Карты Visa, Mastercard, PayPal</p>
             </div>
-            <div class="payment-card">
-              <span class="payment-icon">€</span>
-              <h3>Евро (EUR)</h3>
-              <p>Карты и электронные кошельки</p>
+            <div class="payment-card p-6 bg-pubg-card border border-pubg-border rounded-pubg text-center transition-colors hover:border-pubg-accent hover:bg-pubg-card-hover">
+              <span class="block mb-3 text-3xl font-bold text-pubg-accent">€</span>
+              <h3 class="mb-2 text-[1.1rem] font-semibold">Евро (EUR)</h3>
+              <p class="m-0 text-sm text-[#a1a1a6]">Карты и электронные кошельки</p>
             </div>
-            <div class="payment-card">
-              <span class="payment-icon">₽</span>
-              <h3>Рубли (RUB)</h3>
-              <p>СБП, карты РФ, ЮMoney</p>
+            <div class="payment-card p-6 bg-pubg-card border border-pubg-border rounded-pubg text-center transition-colors hover:border-pubg-accent hover:bg-pubg-card-hover">
+              <span class="block mb-3 text-3xl font-bold text-pubg-accent">₽</span>
+              <h3 class="mb-2 text-[1.1rem] font-semibold">Рубли (RUB)</h3>
+              <p class="m-0 text-sm text-[#a1a1a6]">СБП, карты РФ, ЮMoney</p>
             </div>
-            <div class="payment-card">
-              <span class="payment-icon">₿</span>
-              <h3>Криптовалюта</h3>
-              <p>BTC, ETH, USDT и другие</p>
+            <div class="payment-card p-6 bg-pubg-card border border-pubg-border rounded-pubg text-center transition-colors hover:border-pubg-accent hover:bg-pubg-card-hover">
+              <span class="block mb-3 text-3xl font-bold text-pubg-accent">₿</span>
+              <h3 class="mb-2 text-[1.1rem] font-semibold">Криптовалюта</h3>
+              <p class="m-0 text-sm text-[#a1a1a6]">BTC, ETH, USDT и другие</p>
             </div>
           </div>
         </div>
@@ -135,31 +144,31 @@
   function viewCart() {
     if (state.cart.length === 0) {
       return `
-        <section class="cart-view">
-          <div class="cart-inner">
-            <h2 class="section-title">Корзина</h2>
-            <p class="cart-empty">Корзина пуста. <a href="#/catalog" data-route="/catalog">Перейти в каталог</a></p>
+        <section class="cart-view py-16 px-6 pb-20">
+          <div class="max-w-[720px] mx-auto">
+            <h2 class="section-title mb-8 text-[1.75rem] font-bold text-center">Корзина</h2>
+            <p class="cart-empty text-center text-[#a1a1a6]">Корзина пуста. <a href="#/catalog" class="text-pubg-accent" data-route="/catalog">Перейти в каталог</a></p>
           </div>
         </section>
       `;
     }
     const items = state.cart.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
     const list = items.map(p => `
-      <div class="cart-item" data-id="${p.id}">
-        <img src="${p.img}" alt="" class="cart-item-img">
-        <div class="cart-item-info">
-          <strong>${p.title}</strong>
-          <span class="product-price" data-usd="${p.usd}" data-eur="${p.eur}" data-rub="${p.rub}" data-btc="${p.btc}">${formatPrice(p)}</span>
+      <div class="cart-item flex items-center gap-4 p-4 bg-pubg-card border border-pubg-border rounded-pubg" data-id="${p.id}">
+        <img src="${p.img}" alt="" class="cart-item-img w-16 h-16 object-cover rounded-pubg-sm">
+        <div class="cart-item-info flex-1 flex flex-col gap-1">
+          <strong class="text-[#f5f5f7]">${p.title}</strong>
+          <span class="product-price font-bold text-pubg-accent" data-usd="${p.usd}" data-eur="${p.eur}" data-rub="${p.rub}" data-btc="${p.btc}">${formatPrice(p)}</span>
         </div>
-        <button type="button" class="btn btn-ghost btn-sm" data-action="remove-cart" data-id="${p.id}">Удалить</button>
+        <button type="button" class="btn btn-ghost ${btnGhostSm}" data-action="remove-cart" data-id="${p.id}">Удалить</button>
       </div>
     `).join('');
     return `
-      <section class="cart-view">
-        <div class="cart-inner">
-          <h2 class="section-title">Корзина</h2>
-          <div class="cart-list">${list}</div>
-          <p class="cart-total">Товаров: ${items.length}</p>
+      <section class="cart-view py-16 px-6 pb-20">
+        <div class="max-w-[720px] mx-auto">
+          <h2 class="section-title mb-8 text-[1.75rem] font-bold text-center">Корзина</h2>
+          <div class="cart-list flex flex-col gap-3 mb-6">${list}</div>
+          <p class="cart-total font-semibold text-[#a1a1a6]">Товаров: ${items.length}</p>
         </div>
       </section>
     `;
@@ -167,15 +176,15 @@
 
   function viewLogin() {
     return `
-      <section class="login-view">
-        <div class="login-inner">
-          <h2 class="section-title">Вход</h2>
-          <form class="login-form" data-action="login-submit">
-            <input type="text" placeholder="Email или логин" class="search" aria-label="Логин">
-            <input type="password" placeholder="Пароль" class="search" aria-label="Пароль">
-            <button type="submit" class="btn btn-primary">Войти</button>
+      <section class="login-view py-16 px-6 pb-20">
+        <div class="max-w-[400px] mx-auto">
+          <h2 class="section-title mb-8 text-[1.75rem] font-bold text-center">Вход</h2>
+          <form class="login-form flex flex-col gap-3 [&_.search]:w-full [&_.search]:box-border" data-action="login-submit">
+            <input type="text" placeholder="Email или логин" class="search py-2 px-3 font-inherit text-[#f5f5f7] bg-pubg-darker border border-pubg-border rounded-pubg-sm outline-none placeholder:text-pubg-muted focus:border-pubg-accent" aria-label="Логин">
+            <input type="password" placeholder="Пароль" class="search py-2 px-3 font-inherit text-[#f5f5f7] bg-pubg-darker border border-pubg-border rounded-pubg-sm outline-none placeholder:text-pubg-muted focus:border-pubg-accent" aria-label="Пароль">
+            <button type="submit" class="btn btn-primary ${btnPrimary}">Войти</button>
           </form>
-          <p class="login-hint">Демо-страница. Форма не отправляет данные.</p>
+          <p class="login-hint mt-4 text-[13px] text-pubg-muted text-center">Демо-страница. Форма не отправляет данные.</p>
         </div>
       </section>
     `;

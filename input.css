@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply m-0 font-sans text-[15px] leading-normal text-[#f5f5f7] bg-pubg-dark antialiased;
+  }
+  a {
+    @apply text-pubg-accent no-underline;
+  }
+  a:hover {
+    @apply text-pubg-accent-hover;
+  }
+}
+
+@layer components {
+  .currency-btn.active {
+    @apply text-pubg-accent bg-pubg-accent-muted;
+  }
+  .filter-tab.active {
+    @apply text-pubg-accent bg-pubg-accent-muted;
+  }
+}
