@@ -12,18 +12,18 @@
 <body>
   <header class="header">
     <div class="header-inner">
-      <a href="/" class="logo">
+      <a href="#/" class="logo" data-route="/">
         <span class="logo-icon">◆</span>
         <span>PUBG Codes</span>
       </a>
       <nav class="nav">
-        <a href="#catalog" class="nav-link">Предметы</a>
-        <a href="#catalog" class="nav-link">Сеты одежды</a>
-        <a href="#catalog" class="nav-link">Скины оружия</a>
+        <a href="#/catalog" class="nav-link" data-route="/catalog">Предметы</a>
+        <a href="#/catalog" class="nav-link" data-route="/catalog">Сеты одежды</a>
+        <a href="#/catalog" class="nav-link" data-route="/catalog">Скины оружия</a>
       </nav>
       <div class="header-actions">
         <div class="search-wrap">
-          <input type="search" class="search" placeholder="Поиск..." aria-label="Поиск">
+          <input type="search" class="search" placeholder="Поиск..." aria-label="Поиск" id="search-input">
         </div>
         <div class="currency-selector">
           <button type="button" class="currency-btn active" data-currency="USD">USD</button>
@@ -31,180 +31,28 @@
           <button type="button" class="currency-btn" data-currency="RUB">RUB</button>
           <button type="button" class="currency-btn" data-currency="BTC">Crypto</button>
         </div>
-        <a href="#cart" class="btn btn-ghost">Корзина</a>
-        <a href="#login" class="btn btn-primary">Войти</a>
+        <a href="#/cart" class="btn btn-ghost" data-route="/cart">Корзина</a>
+        <a href="#/login" class="btn btn-primary" data-route="/login">Войти</a>
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <h1 class="hero-title">
-          Коды для <span class="highlight">PUBG</span><br>
-          <span class="hero-sub">предметы · сеты · скины</span>
-        </h1>
-        <p class="hero-desc">
-          Покупайте коды предметов, сетов одежды и скинов на оружие. Оплата в долларах, евро, рублях и криптовалюте.
-        </p>
-        <div class="hero-actions">
-          <a href="#items" class="btn btn-primary btn-lg">Смотреть каталог</a>
-          <a href="#how" class="btn btn-ghost btn-lg">Как купить</a>
-        </div>
+  <main id="app" class="app"></main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">◆</span> PUBG Codes
       </div>
-    </section>
-
-    <section class="filters">
-      <div class="filters-inner">
-        <div class="filter-tabs">
-          <button type="button" class="filter-tab active" data-category="all">Всё</button>
-          <button type="button" class="filter-tab" data-category="items">Предметы</button>
-          <button type="button" class="filter-tab" data-category="outfits">Сеты</button>
-          <button type="button" class="filter-tab" data-category="weapon-skins">Скины оружия</button>
-        </div>
-        <select class="sort-select" aria-label="Сортировка">
-          <option value="popular">По популярности</option>
-          <option value="price-asc">Сначала дешевле</option>
-          <option value="price-desc">Сначала дороже</option>
-          <option value="new">Новинки</option>
-        </select>
-      </div>
-    </section>
-
-    <section class="catalog" id="catalog">
-      <div class="catalog-inner">
-        <div class="product-grid" id="product-grid">
-          <!-- Карточки генерируются или статичные -->
-          <article class="product-card" data-category="items">
-            <div class="product-image">
-              <img src="https://placehold.co/280x180/2d3748/e8a855?text=Item+Code" alt="Код предмета">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Набор предметов «Боец»</h3>
-              <p class="product-desc">Код на набор из 5 случайных предметов для PUBG.</p>
-              <div class="product-meta">
-                <span class="product-price" data-usd="4.99" data-eur="4.49" data-rub="499" data-btc="0.00012">$4.99</span>
-                <a href="#buy" class="btn btn-primary btn-sm">Купить</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-category="outfits">
-            <div class="product-image">
-              <img src="https://placehold.co/280x180/2d3748/e8a855?text=Outfit+Set" alt="Сет одежды">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Сет «Тёмный охотник»</h3>
-              <p class="product-desc">Полный сет одежды: куртка, штаны, обувь, кепка.</p>
-              <div class="product-meta">
-                <span class="product-price" data-usd="12.99" data-eur="11.99" data-rub="1299" data-btc="0.00031">$12.99</span>
-                <a href="#buy" class="btn btn-primary btn-sm">Купить</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-category="weapon-skins">
-            <div class="product-image">
-              <img src="https://placehold.co/280x180/2d3748/e8a855?text=Weapon+Skin" alt="Скин оружия">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Скин M416 «Неон»</h3>
-              <p class="product-desc">Эксклюзивный скин на M416 с неоновой подсветкой.</p>
-              <div class="product-meta">
-                <span class="product-price" data-usd="8.49" data-eur="7.99" data-rub="849" data-btc="0.00020">$8.49</span>
-                <a href="#buy" class="btn btn-primary btn-sm">Купить</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-category="items">
-            <div class="product-image">
-              <img src="https://placehold.co/280x180/2d3748/e8a855?text=Loot+Box" alt="Лутбокс">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Мега-лутбокс</h3>
-              <p class="product-desc">Код на мега-лутбокс с гарантированным редким предметом.</p>
-              <div class="product-meta">
-                <span class="product-price" data-usd="19.99" data-eur="18.49" data-rub="1999" data-btc="0.00048">$19.99</span>
-                <a href="#buy" class="btn btn-primary btn-sm">Купить</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-category="outfits">
-            <div class="product-image">
-              <img src="https://placehold.co/280x180/2d3748/e8a855?text=Set+Elite" alt="Элитный сет">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Сет «Элита»</h3>
-              <p class="product-desc">Премиум сет одежды с уникальной анимацией.</p>
-              <div class="product-meta">
-                <span class="product-price" data-usd="24.99" data-eur="22.99" data-rub="2499" data-btc="0.00060">$24.99</span>
-                <a href="#buy" class="btn btn-primary btn-sm">Купить</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card" data-category="weapon-skins">
-            <div class="product-image">
-              <img src="https://placehold.co/280x180/2d3748/e8a855?text=AKM+Skin" alt="Скин AKM">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Скин AKM «Дракон»</h3>
-              <p class="product-desc">Легендарный скин на AKM в стиле дракона.</p>
-              <div class="product-meta">
-                <span class="product-price" data-usd="14.99" data-eur="13.99" data-rub="1499" data-btc="0.00036">$14.99</span>
-                <a href="#buy" class="btn btn-primary btn-sm">Купить</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="how" id="how">
-      <div class="how-inner">
-        <h2 class="section-title">Как оплатить</h2>
-        <div class="payment-methods">
-          <div class="payment-card">
-            <span class="payment-icon">$</span>
-            <h3>Доллары (USD)</h3>
-            <p>Карты Visa, Mastercard, PayPal</p>
-          </div>
-          <div class="payment-card">
-            <span class="payment-icon">€</span>
-            <h3>Евро (EUR)</h3>
-            <p>Карты и электронные кошельки</p>
-          </div>
-          <div class="payment-card">
-            <span class="payment-icon">₽</span>
-            <h3>Рубли (RUB)</h3>
-            <p>СБП, карты РФ, ЮMoney</p>
-          </div>
-          <div class="payment-card">
-            <span class="payment-icon">₿</span>
-            <h3>Криптовалюта</h3>
-            <p>BTC, ETH, USDT и другие</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <span class="logo-icon">◆</span> PUBG Codes
-        </div>
-        <nav class="footer-nav">
-          <a href="#items">Предметы</a>
-          <a href="#outfits">Сеты</a>
-          <a href="#weapon-skins">Скины</a>
-          <a href="#how">Оплата</a>
-        </nav>
-        <p class="footer-copy">© PUBG Codes. Неофициальный маркетплейс. PUBG — товарный знак Krafton.</p>
-      </div>
-    </footer>
-  </main>
+      <nav class="footer-nav">
+        <a href="#/catalog" data-route="/catalog">Предметы</a>
+        <a href="#/catalog" data-route="/catalog">Сеты</a>
+        <a href="#/catalog" data-route="/catalog">Скины</a>
+        <a href="#/how" data-route="/how">Оплата</a>
+      </nav>
+      <p class="footer-copy">© PUBG Codes. Неофициальный маркетплейс. PUBG — товарный знак Krafton.</p>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
